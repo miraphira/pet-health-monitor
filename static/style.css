@@ -1,0 +1,51 @@
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #ffdbdf;
+    padding: 30px;
+}
+
+.container {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    max-width: 700px;
+    margin: auto;
+}
+
+h1 {
+    font-family: 'Fredoka', sans-serif;
+    color: #f791A9;
+}
+
+p {
+    color: #dddd7b;
+}
+
+button {
+    background-color: #dddd7b;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+input, select {
+    font-family: 'Nunito', sans-serif;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.navbar {
+    margin-bottom: 20px;
+    font-weight: bold;
+}

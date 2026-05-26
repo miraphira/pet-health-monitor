@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Moi Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+<body>
+
+        <div class="container">
+
+            <div class="navbar">
+                🌈Welcome to Moi monitoring system!🌈
+            </div>
+
+            <h1>Dashboard Moi</h1>
+
+            <p>Status Moi: lagi bengong</p>
+
+            <form action="/submit-log" method="post">
+
+                <label>Jenis Log:</label>
+                <select name="log_type">
+                    <option value="makan">Makan</option>
+                    <option value="muntah">Muntah</option>
+                    <option value="BAB">BAB</option>
+                    <option value="obat">Obat</option>
+                </select>
+
+                <br><br>
+                
+                <label>Catatan:</label>
+                <input type="text" name="note">
+
+                <br><br>
+
+                <button type="submit">Submit</button>
+
+            </form>
+
+
+        </div>
+
+</body>
+</html>
