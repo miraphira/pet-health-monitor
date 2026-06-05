@@ -8,9 +8,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="/static/favicon.ico">
 
 </head>
 <body>
+
+        <div class="dashboard-cards">
+            <div class="card">
+                <h3>Total Logs</h3>
+                <p>{{ total_logs }}</p>
+            </div><br>
+
+            <div class="card">
+                <h3>Latest Activity</h3>
+
+                {% if latest_log %}
+                    <p>{{ latest_log.type }}</p>
+                {% else %}
+                    <p>Belum ada data</p>
+                {% endif %}
+            </div><br>
+
+            <div class="card">
+                <h3>Mood Moi</h3>
+                <p>{{ mood_moi }}</p>
+            </div><br>
+        </div>
 
         <div class="container">
 
@@ -20,7 +43,7 @@
 
             <h1>Dashboard Moi</h1>
 
-            <p>Status Moi: lagi bengong</p>
+            <p>Status Moi: {{ mood_moi }}</p>
 
             <form action="/submit-log" method="post">
 
@@ -43,6 +66,38 @@
 
             </form>
 
+            <h2>Total Logs: {{ total_logs }}</h2>
+
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Note</th>
+                    <th>Edit</th>
+                </tr>
+
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log.id }}</td>
+                    <td>{{ log.type }}</td>
+                    <td>{{ log.note or "" }}</td>
+                    <td class="action-col">
+                        <a href="/edit/{{ log.id }}">
+                            <button type="button">Edit</button>
+                        </a>
+                        <form 
+                            action="/delete/{{ log.id }}" 
+                            method="post"
+                            onsubmit="return confirm('Yakin mau hapus?')">
+                            <button type="submit">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </table>
 
         </div>
 

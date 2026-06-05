@@ -1,39 +1,46 @@
 body {
     font-family: 'Nunito', sans-serif;
-    background-color: #ffdbdf;
+    background-color: #415a77;
     padding: 30px;
 }
 
 .container {
-    background-color: white;
+    background-color: #e0e1dd;
     padding: 25px;
     border-radius: 10px;
-    max-width: 700px;
+    max-width: 500px;
     margin: auto;
 }
 
 h1 {
     font-family: 'Fredoka', sans-serif;
-    color: #f791A9;
+    color: #1b263b;
 }
 
 p {
-    color: #dddd7b;
+    color: #415a77;
 }
 
 button {
-    background-color: #dddd7b;
+    background-color: #415a77;
     color: white;
     border: none;
     padding: 10px 16px;
     border-radius: 5px;
     cursor: pointer;
+
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background: white;
 }
 
 input, select {
@@ -43,9 +50,44 @@ input, select {
 th, td {
     border: 1px solid #ccc;
     padding: 10px;
+    text-align: center;
+}
+
+tr:hover {
+    background-color: #e0e1dd;
 }
 
 .navbar {
     margin-bottom: 20px;
     font-weight: bold;
+}
+
+.action-col {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    
+}
+
+.action-col form {
+    margin: 0;
+}
+
+.dashboard-cards {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.card {
+    background: white;
+    padding: 5px;
+    border-radius: 10px;
+    flex:1;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card:hover {
+    transform: translateY(-2px);
 }

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Edit Log</title>
+    </head>
+
+    <body>
+
+    <h1>Edit Log</h1>
+    <form 
+        action="/update/{{ log.id }}"
+        method="post">
+        <label>Type:</label>
+        <select name="log_type">
+            <option value="makan"
+                {% if log.type == "makan" %}selected{% endif %}>
+                Makan
+            </option>
+
+            <option value="muntah"
+                {% if log.type == "muntah" %}selected{% endif %}>
+                Muntah
+            </option>
+
+            <option value="BAB"
+                {% if log.type == "BAB" %}selected{% endif %}>
+                BAB
+            </option>
+
+            <option value="obat"
+                {% if log.type == "obat" %}selected{% endif %}>
+                Obat
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <label>Note:</label>
+        <input
+            type="text"
+            name="note"
+            value="{{ log.note }}"
+        > 
+
+        <br><br>
+
+        <button type="submit">
+            Save Changes
+        </button>
+
+    </form>
+    </body>
+
+</html>
