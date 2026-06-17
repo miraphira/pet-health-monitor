@@ -7,6 +7,9 @@ Simple pet health monitoring dashboard with FastAPI and SQLite.
 - Create, edit, delete, and view health logs
 - SQLite database
 - Basic summary cards
+- Weight statistics for tracking
+- Latest activity
+- Random status
 
 ## Tech Stack
 - Python
