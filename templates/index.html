@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Moi Dashboard</title>
+    <title>Pet Dashboard</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,29 +11,58 @@
     <link rel="icon" href="/static/favicon.ico">
 
 </head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <body>
+        <div class="header">
+            <p>{{ today_date }}</p>
+            <h1>Pet Health Dashboard</h1>
+            <p><strong>Pet Mood: </strong>{{ mood_moi }}</p>
+        </div>
 
         <div class="dashboard-cards">
             <div class="card">
-                <h3>Total Logs</h3>
-                <p>{{ total_logs }}</p>
-            </div><br>
+                <h3>Last Weight</h3>
+                    <div class="card-content">
+                        {% if last_weight %}
+                            <h2>{{ last_weight.weight or "" }} kg</h2>
+                            <p>
+                                {{ weight_date }}
+                            </p>
+                        {% else %}
+                            <p>Belum ada data</p>
+                        {% endif %}
+                    </div>
+            </div>
 
-            <div class="card">
+            <div class="card chart-card">
+                <h3>Weight Trend</h3>
+                <canvas id="weightChart"></canvas>
+            </div>
+        </div>
+
+        <div class="card activity-card">
                 <h3>Latest Activity</h3>
 
-                {% if latest_log %}
-                    <p>{{ latest_log.type }}</p>
-                {% else %}
-                    <p>Belum ada data</p>
-                {% endif %}
-            </div><br>
+                {% for log in latest_log %}
+                    <div class="activity-item">
+                        <p class="date">{{ log.formatted_date }}</p>
+                        <p>
+                            {% if log.type == "makan" %} 🍗
+                            {% elif log.type == "muntah" %} 🤮
+                            {% elif log.type == "BAB" %} 💩
+                            {% elif log.type == "obat" %} 💊
+                            {% elif log.type == "berat badan" %} 💪🏻
+                            {% else %} 😺
+                            {% endif %}
 
-            <div class="card">
-                <h3>Mood Moi</h3>
-                <p>{{ mood_moi }}</p>
-            </div><br>
-        </div>
+                            {{ log.type }} 
+                            {% if log.note %} - {{ log.note }}
+                            {% else %} 
+                            {% endif %}
+                        </p>
+                    </div>
+                {% endfor %}
+        </div><br>
 
         <div class="container">
 
@@ -45,7 +74,7 @@
 
             <p>Status Moi: {{ mood_moi }}</p>
 
-            <form action="/submit-log" method="post">
+            <form class="log-form" action="/submit-log" method="post">
 
                 <label>Jenis Log:</label>
                 <select name="log_type">
@@ -53,15 +82,15 @@
                     <option value="muntah">Muntah</option>
                     <option value="BAB">BAB</option>
                     <option value="obat">Obat</option>
+                    <option value="berat badan">Berat Badan</option>
                 </select>
-
-                <br><br>
                 
+                <label>Berat Badan (kg):</label>
+                <input type="number" step="0.01" name="weight" placeholder="1.00">
+
                 <label>Catatan:</label>
                 <input type="text" name="note">
-
-                <br><br>
-
+                
                 <button type="submit">Submit</button>
 
             </form>
@@ -70,17 +99,19 @@
 
             <table>
                 <tr>
-                    <th>ID</th>
+                    <th>Date</th>
                     <th>Type</th>
                     <th>Note</th>
+                    <th>Weight</th>
                     <th>Edit</th>
                 </tr>
 
                 {% for log in logs %}
                 <tr>
-                    <td>{{ log.id }}</td>
+                    <td>{{ log.formatted_date }}</td>
                     <td>{{ log.type }}</td>
                     <td>{{ log.note or "" }}</td>
+                    <td>{{ log.weight or "" }}</td>
                     <td class="action-col">
                         <a href="/edit/{{ log.id }}">
                             <button type="button">Edit</button>
@@ -97,9 +128,51 @@
                 </tr>
                 {% endfor %}
 
-            </table>
+            </table><br>
 
-        </div>
+            <div class="dashboard-cards">
+                <div class="card">
+                    <h3>Makan</h3>
+                    <p>{{ jml_makan }}</p>
+                </div>
+
+                <div class="card">
+                    <h3>Muntah</h3>
+                    <p>{{ jml_muntah }}</p>
+                </div>
+
+                <div class="card">
+                    <h3>BAB</h3>
+                    <p>{{ jml_bab }}</p>
+                </div>
+
+                <div class="card">
+                    <h3>Obat</h3>
+                    <p>{{ jml_obat }}</p>
+                </div>
+            </div>
+    </div>
+
+    <script>
+        const labels = {{ weight_dates | tojson }};
+        const data = {{ weight_values | tojson }};
+        new Chart(
+            document.getElementById("weightChart"),
+            {
+                type: "line",
+                data: { 
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: "Weight (kg)",
+                            data: data,
+                            tension: 0.3
+                        }
+                    ]
+                }
+            }
+        )
+    </script>
 
 </body>
 </html>

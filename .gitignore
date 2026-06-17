@@ -3,3 +3,4 @@ __pycache__/
 .vs/
 *.pyc
 pet.db
+tambah_kolom.py

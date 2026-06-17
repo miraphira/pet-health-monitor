@@ -2,54 +2,71 @@
 <html>
     <head>
         <title>Edit Log</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="/static/style.css">
+        <link rel="icon" href="/static/favicon.ico">
     </head>
 
     <body>
+        <div class="container">
+            <h1>Edit Log</h1>
+            <form action="/update/{{ log.id }}" method="post">
+                <label>Type:</label>
+                <select name="log_type">
+                    <option value="makan"
+                        {% if log.type == "makan" %}selected{% endif %}>
+                        Makan
+                    </option>
 
-    <h1>Edit Log</h1>
-    <form 
-        action="/update/{{ log.id }}"
-        method="post">
-        <label>Type:</label>
-        <select name="log_type">
-            <option value="makan"
-                {% if log.type == "makan" %}selected{% endif %}>
-                Makan
-            </option>
+                    <option value="muntah"
+                        {% if log.type == "muntah" %}selected{% endif %}>
+                        Muntah
+                    </option>
 
-            <option value="muntah"
-                {% if log.type == "muntah" %}selected{% endif %}>
-                Muntah
-            </option>
+                    <option value="BAB"
+                        {% if log.type == "BAB" %}selected{% endif %}>
+                        BAB
+                    </option>
 
-            <option value="BAB"
-                {% if log.type == "BAB" %}selected{% endif %}>
-                BAB
-            </option>
+                    <option value="obat"
+                        {% if log.type == "obat" %}selected{% endif %}>
+                        Obat
+                    </option>
 
-            <option value="obat"
-                {% if log.type == "obat" %}selected{% endif %}>
-                Obat
-            </option>
+                    <option value="berat badan"
+                        {% if log.type == "berat badan" %}selected{% endif %}>
+                        Berat Badan
+                    </option>
 
-        </select>
+                </select>
 
-        <br><br>
+                <br><br>
 
-        <label>Note:</label>
-        <input
-            type="text"
-            name="note"
-            value="{{ log.note }}"
-        > 
+                <label>Berat Badan:</label>
+                <input type="number" step="0.01" name="weight" value="{{ log.weight }}">
+        
+                <br><br>
 
-        <br><br>
+                <label>Catatan:</label>
+                <input
+                    type="text"
+                    name="note"
+                    value="{{ log.note or '' }}"
+                > 
 
-        <button type="submit">
-            Save Changes
-        </button>
+                <br><br>
 
-    </form>
+                <button type="submit">
+                    Save Changes
+                </button>
+
+            </form>
+
+        </div>
     </body>
 
 </html>
