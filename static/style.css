@@ -91,13 +91,40 @@ tr:hover {
 }
 
 .header {
-    margin-bottom: 50px;
+    margin: 0 auto 50px;
+
+    position: relative;
+    width: 900px;
+}
+
+.header-info {
+    text-align: center;
+}
+
+.logout {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    text-decoration: none;
+    background: #ccc;
+    color: #1b263b;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.logout:hover {
+    opacity: 0.9;
 }
 
 .header p {
     color: #ccc;
-    text-align: center;
     line-height: 0.5;
+}
+
+.header h2 {
+    color: #1b263b;
+    font-weight: bold;
 }
 
 .dashboard-cards {

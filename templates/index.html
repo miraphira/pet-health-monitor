@@ -13,11 +13,19 @@
 </head>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <body>
-        <div class="header">
-            <p>{{ today_date }}</p>
-            <h1>Pet Health Dashboard</h1>
-            <p><strong>Pet Mood: </strong>{{ mood_moi }}</p>
-        </div>
+        <header class="header">
+            <a class="logout" href="/logout">
+                Logout
+            </a>
+
+            <div class="header-info">
+                <p>{{ today_date }}</p>
+                <h1>Pet Health Dashboard</h1>
+                <h2>Halo, {{ username }}</h2>
+                <p><strong>Pet Mood:</strong> {{ mood_moi }}</p>
+            </div>
+
+        </header>
 
         <div class="dashboard-cards">
             <div class="card">
@@ -67,16 +75,16 @@
         <div class="container">
 
             <div class="navbar">
-                🌈Welcome to Moi monitoring system!🌈
+                🌈Welcome to pet monitoring system!🌈
             </div>
 
-            <h1>Dashboard Moi</h1>
+            <h2>Dashboard Moi</h2>
 
-            <p>Status Moi: {{ mood_moi }}</p>
+            <p>Pet status: {{ mood_moi }}</p>
 
             <form class="log-form" action="/submit-log" method="post">
 
-                <label>Jenis Log:</label>
+                <label>Log Type:</label>
                 <select name="log_type">
                     <option value="makan">Makan</option>
                     <option value="muntah">Muntah</option>
@@ -85,10 +93,10 @@
                     <option value="berat badan">Berat Badan</option>
                 </select>
                 
-                <label>Berat Badan (kg):</label>
+                <label>Weight (kg):</label>
                 <input type="number" step="0.01" name="weight" placeholder="1.00">
 
-                <label>Catatan:</label>
+                <label>Note:</label>
                 <input type="text" name="note">
                 
                 <button type="submit">Submit</button>

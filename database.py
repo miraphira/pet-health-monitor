@@ -23,3 +23,21 @@ def create_table():
     conn.close()
 
 create_table()
+
+def create_users_table():
+    conn=connect_db()
+    cursor=conn.cursor()
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS users(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT UNIQUE NOT NULL,
+            password TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP          
+        )
+    """)
+
+    conn.commit()
+    conn.close()
+
+create_users_table()

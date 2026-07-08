@@ -5,8 +5,12 @@ from fastapi.staticfiles import StaticFiles
 from database import connect_db
 import random
 from datetime import datetime
+from auth import get_user, verify_password
+from starlette.middleware.sessions import SessionMiddleware
 
 app = FastAPI()
+app.add_middleware(
+    SessionMiddleware, secret_key='pet-secret-key')
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -18,6 +22,11 @@ def format_date(date_str):
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
+    if not request.session.get("username"):
+        return RedirectResponse("/login", status_code=303)
+
+    username = request.session.get("username")
+
     today_date = datetime.now().strftime("%d %b %Y")
 
     conn = connect_db()
@@ -91,18 +100,18 @@ def home(request: Request):
     conn.close()
 
     moods = [
-    "lapar tapi judging babu",
-    "moi mode sinis 😾",
-    "lagi flashback kehidupan lampau",
-    "menjadi bola hitam",
-    "menatap tembok tanpa alasan",
-    "bola hitam menunggu makan"
+    "Hungry but pretending not to care",
+    "Judging the staff performance",
+    "Replaying embarrassing memories from 2019",
+    "Currently operating as a black furball",
+    "Staring at a wall (important business)",
+    "Waiting for food with dramatic patience"
     ]
 
-    if jml_muntah > 5 :
-        moi_mood = "Moi sebaiknya ke dokter! 😭"
+    if jml_muntah > 5:
+        moi_mood = "A vet visit might be needed!"
     elif jml_muntah > 2:
-        moi_mood = "Moi berusaha fine 🥺"
+        moi_mood = "Trying very hard to be okay :)"
     else:
         moi_mood = random.choice(moods)
 
@@ -123,7 +132,8 @@ def home(request: Request):
         "jml_muntah": jml_muntah,
         "jml_bab": jml_bab,
         "jml_obat": jml_obat,
-        "jml_bb": jml_bb
+        "jml_bb": jml_bb,
+        "username": username
         }
     )
 
@@ -225,3 +235,40 @@ def update_log(
         url="/",
         status_code=303
     )
+
+@app.get("/login", response_class=HTMLResponse)
+def login_page(request: Request):
+    if request.session.get("username"):
+        return RedirectResponse(
+            url="/",
+            status_code=303
+        )
+    return templates.TemplateResponse(
+        request= request,
+        name= "login.html"
+    )
+
+@app.post("/login")
+def login(
+    request: Request,
+    username: str = Form(...),
+    password: str = Form(...)
+):
+    user = get_user(username)
+    if not user or not verify_password(password, user["password"]):
+        return templates.TemplateResponse(
+            request= request,
+            name= "login.html",
+            context={
+                "error": "Username atau password salah"
+            },
+            status_code= 401
+        )
+
+    request.session["username"] = user["username"]
+    return RedirectResponse("/", status_code=303)
+
+@app.get("/logout")
+def logout(request: Request):
+    request.session.clear()
+    return RedirectResponse("/login", status_code=303)
