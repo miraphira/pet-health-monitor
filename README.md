@@ -3,6 +3,8 @@
 Simple pet health monitoring dashboard with FastAPI and SQLite.
 
 ## Current Features
+- User authentication
+- Secure password hashing with bcrypt
 - Dashboard
 - Create, edit, delete, and view health logs
 - SQLite database
@@ -18,6 +20,7 @@ Simple pet health monitoring dashboard with FastAPI and SQLite.
 - CSS
 - SQLite
 - Jinja2
+- Chart.js
 
 ## Run Project
 

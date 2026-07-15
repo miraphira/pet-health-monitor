@@ -1,28 +1,40 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Login</title>
+        <title>Login Dashboard</title>
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="/static/style.css">
+        <link rel="icon" href="/static/favicon.ico">
+
     </head>
     <body>
-        <h1>Login</h1>
+        <div class="login-container">
+            <div class="login-card">
+                <h1>Login</h1>
 
-        {% if error %}
-            <p style="color: red;">
-                {{ error }}
-            </p>
-        {% endif %}
+                {% if error %}
+                    <p class="error">
+                        {{ error }}
+                    </p>
+                {% endif %}
 
-        <form action="/login" method="post">
-            <label>Username</label><br>
-            <input type="text" name="username" required><br><br>
+                <form action="/login" method="post">
+                    <label>Username</label><br>
+                    <input type="text" name="username" required autofocus><br><br>
 
-            <label>Password</label><br>
-            <input type="password" name="password" required><br><br>
+                    <label>Password</label><br>
+                    <input type="password" name="password" required><br><br>
 
-            <button type="submit">
-                Login
-            </button>
+                    <button type="submit">
+                        Login
+                    </button>
 
-        </form>
+                </form>
+            </div>
+        </div>
     </body>
 </html>

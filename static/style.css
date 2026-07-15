@@ -4,6 +4,34 @@ body {
     padding: 30px;
 }
 
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+}
+
+.login-card input {
+    width:100%;
+    padding: 5px;
+    border-radius: 8px;
+    border: 1px solid #1b263b;
+}
+
+.error {
+    color: red;
+    margin-bottom: 15px;
+}
+
+.login-card button {
+    font-family: 'Fredoka', sans-serif;
+    color: #1b263b;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #ccc;
+}
+
 .container {
     background-color: #e0e1dd;
     padding: 25px;
