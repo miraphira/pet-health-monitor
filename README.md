@@ -61,3 +61,6 @@ python create_user.py
 ## Database
 
 The SQLite database file (`pet.db`) is generated automatically when the application runs for the first time.
+
+## Preview
+![Dashboard](assets/dashboard.png)
