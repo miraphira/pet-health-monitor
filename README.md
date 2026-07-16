@@ -22,19 +22,21 @@ Simple pet health monitoring dashboard with FastAPI and SQLite.
 - Jinja2
 - Chart.js
 
-## Run Project
-
-Activate virtual environment:
+## Installation
 
 ```bash
+git clone https://github.com/miraphira/pet-health-monitor.git
+
+cd pet-health-monitor
+
+python -m venv venv
+
 venv\Scripts\activate
-```
 
-Install dependencies:
-
-```bash
 pip install -r requirements.txt
 ```
+
+## Run Project
 
 Run server:
 
@@ -46,6 +48,14 @@ Open:
 
 ```txt
 http://localhost:8000
+```
+
+## Create User
+
+Create your own user before running the application:
+
+```bash
+python create_user.py
 ```
 
 ## Database
