@@ -22,7 +22,7 @@
                 <p>{{ today_date }}</p>
                 <h1>Pet Health Dashboard</h1>
                 <h2>Hi, {{ username }}!</h2>
-                <p><strong>Pet Mood:</strong> {{ mood_moi }}</p>
+                <p><strong>{{username}} Mood:</strong> {{ mood_moi }}</p>
             </div>
 
         </header>
@@ -78,9 +78,9 @@
                 🌈Welcome to pet monitoring system!🌈
             </div>
 
-            <h2>Dashboard Moi</h2>
+            <h2>Dashboard {{username}}</h2>
 
-            <p>Pet status: {{ mood_moi }}</p>
+            <p>{{ username }} status: {{ mood_moi }}</p>
 
             <form class="log-form" action="/submit-log" method="post">
 
@@ -100,7 +100,19 @@
                 <input type="text" name="note">
                 
                 <button type="submit">Submit</button>
+            </form>
 
+            <form action="/" method="get">
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ search }}"
+                    placeholder="Where is my note about..."
+                >
+
+                <button type="submit">
+                    Search
+                </button>
             </form>
 
             <h2>Total Logs: {{ total_logs }}</h2>

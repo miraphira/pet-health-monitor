@@ -21,7 +21,8 @@ def format_date(date_str):
     return dt.strftime("%d %b")
 
 @app.get("/", response_class=HTMLResponse)
-def home(request: Request):
+def home(request: Request, 
+         search: str = ""):
     if not request.session.get("username"):
         return RedirectResponse("/login", status_code=303)
 
@@ -32,10 +33,20 @@ def home(request: Request):
     conn = connect_db()
     cursor = conn.cursor()
 
-    cursor.execute("""
-        SELECT * FROM health_logs 
-        ORDER BY created_at DESC 
-    """)
+    if search:
+        cursor.execute("""
+            SELECT * FROM health_logs 
+            WHERE 
+                note LIKE ?
+                OR type LIKE ?
+            ORDER BY created_at DESC
+        """, (f"%{search}%", f"%{search}%"))
+        
+    else:
+        cursor.execute("""
+            SELECT * FROM health_logs 
+            ORDER BY created_at DESC 
+        """)
 
     logs = cursor.fetchall()
 
@@ -119,6 +130,7 @@ def home(request: Request):
         request= request,
         name= "index.html",
         context={
+        "search": search,
         "today_date": today_date,
         "logs": log_list,
         "total_logs": len(logs),
@@ -136,6 +148,8 @@ def home(request: Request):
         "username": username
         }
     )
+
+
 
 @app.get("/edit/{log_id}")
 def edit_page(request: Request, log_id: int):
